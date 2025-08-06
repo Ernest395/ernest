@@ -1,6 +1,46 @@
 import { useState, useEffect } from 'react';
 import useUser from '@/utils/useUser';
 
+// Dummy goods data for beta version, images sourced from unsplash.com (public)
+const goods = [
+  {
+    name: "Wireless Headphones",
+    price: "$79",
+    image: "https://images.unsplash.com/photo-1519677100203-a0e668c92439?auto=format&fit=crop&w=400&q=80",
+    description: "High-fidelity wireless headphones with noise-cancellation."
+  },
+  {
+    name: "Running Shoes",
+    price: "$59",
+    image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=400&q=80",
+    description: "Comfortable, lightweight shoes for everyday running."
+  },
+  {
+    name: "Smart Watch",
+    price: "$120",
+    image: "https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?auto=format&fit=crop&w=400&q=80",
+    description: "Track your fitness and notifications with a stylish smartwatch."
+  },
+  {
+    name: "Coffee Maker",
+    price: "$45",
+    image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80",
+    description: "Brew fresh coffee quickly with this compact coffee maker."
+  },
+  {
+    name: "Designer Handbag",
+    price: "$199",
+    image: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80",
+    description: "Elegant designer handbag made from premium materials."
+  },
+  {
+    name: "Gaming Console",
+    price: "$299",
+    image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=400&q=80",
+    description: "Play top games with the latest generation console."
+  },
+];
+
 function MainComponent() {
   const { data: user } = useUser();
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -71,7 +111,7 @@ function MainComponent() {
               <div className="hidden md:block ml-6">
                 <div className="flex items-baseline space-x-8">
                   <a href="/" className="text-gray-900 hover:text-purple-600 px-3 py-2 text-sm font-medium transition-colors">Home</a>
-                  <a href="/buy" className="text-gray-700 hover:text-purple-600 px-3 py-2 text-sm font-medium transition-colors">Buy</a>
+                  <a href="#goods" className="text-gray-700 hover:text-purple-600 px-3 py-2 text-sm font-medium transition-colors">Buy</a>
                   <a href="/sell" className="text-gray-700 hover:text-purple-600 px-3 py-2 text-sm font-medium transition-colors">Sell</a>
                   <a href="/contact" className="text-gray-700 hover:text-purple-600 px-3 py-2 text-sm font-medium transition-colors">Contact</a>
                 </div>
@@ -128,7 +168,7 @@ function MainComponent() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 mt-8">
                 <a
-                  href="/buy"
+                  href="#goods"
                   className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-3 rounded-xl font-semibold hover:from-purple-600 hover:to-pink-600 transform hover:scale-105 transition-all duration-200 text-center"
                 >
                   Start Buying
@@ -160,8 +200,43 @@ function MainComponent() {
         </div>
       </section>
 
+      {/* Goods Section */}
+      <section id="goods" className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              Featured <span className="bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">Goods & Services</span>
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Browse a sample of goods and services available in our marketplace.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+            {goods.map((item, idx) => (
+              <div key={idx} className="bg-white rounded-2xl shadow-lg overflow-hidden group hover:scale-105 transition-all duration-200">
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className="w-full h-48 object-cover group-hover:opacity-90 transition-all duration-200"
+                />
+                <div className="p-6 flex flex-col gap-2">
+                  <h3 className="text-xl font-bold text-gray-800">{item.name}</h3>
+                  <p className="text-gray-600">{item.description}</p>
+                  <span className="text-lg font-semibold text-purple-600">{item.price}</span>
+                  <button
+                    className="mt-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all duration-200"
+                  >
+                    Buy Now
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Features Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
@@ -272,7 +347,7 @@ function MainComponent() {
             <div>
               <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
               <ul className="space-y-2">
-                <li><a href="/buy" className="text-gray-400 hover:text-white transition-colors">Buy</a></li>
+                <li><a href="#goods" className="text-gray-400 hover:text-white transition-colors">Buy</a></li>
                 <li><a href="/sell" className="text-gray-400 hover:text-white transition-colors">Sell</a></li>
                 <li><a href="/contact" className="text-gray-400 hover:text-white transition-colors">Contact</a></li>
               </ul>
